@@ -1,4 +1,4 @@
-@use './variables' as *;
+@use "./variables" as *;
 *,
 *::after,
 *::before {
@@ -10,8 +10,8 @@
 html {
   font-size: 62.5%; /* Base font size for rem units */
   scroll-behavior: smooth;
+  width: 100%;
   overflow-x: hidden; /* Prevent horizontal scrolling */
-  overflow-y: auto;
 }
 
 img {
@@ -36,19 +36,23 @@ body {
   font-family: "Public Sans", sans-serif; /* Add fallback font */
   background-color: beige; /* Fallback for $beige-100 */
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  width: 100%;
+  height: 100vh;
 }
 
 main {
   width: 100%;
+  height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
   overflow-y: auto; /* Allow vertical scrolling for main content */
 }
 
 .main_Layot {
   display: grid;
-  grid-template-columns:  300px 1fr;
+  grid-template-columns: 300px 1fr;
 }
 .main_Layot.sidebar {
-  grid-template-columns:  1fr;
+  grid-template-columns: 1fr;
 }
 
 .overContainer {
@@ -56,44 +60,45 @@ main {
   height: 100vh;
   background-color: $grey-900;
   border-radius: 0 $spacing-200 $spacing-200 0;
-  // position: relative;
+  overflow-y: auto;
   bottom: 0;
   margin: 0;
   align-items: start;
   transition: 0.3s;
-  button{
+  button {
     width: auto;
-    background-color:transparent;
+    background-color: transparent;
     border: none;
   }
 }
 
-.overContainer.sidebar{
+.overContainer.sidebar {
   position: absolute;
   width: 88px;
-  h4{
+  h4 {
     display: none;
   }
 }
 
-.main.sidebar{
+.main.sidebar {
   padding-left: 88px;
 }
 
-#my-chart .apexcharts-legend{
+#my-chart .apexcharts-legend {
   display: none;
 }
 
-#react-select-container, .react-select__control{
-  background-color:red;
+#react-select-container,
+.react-select__control {
+  background-color: red;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
 }
 
-@media (max-width:1024px){
-  .main_Layot{
+@media (max-width: 1024px) {
+  .main_Layot {
     display: grid;
     grid-template-columns: 1fr;
   }
