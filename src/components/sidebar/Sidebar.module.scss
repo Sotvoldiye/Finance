@@ -1,0 +1,83 @@
+@use "../../scss/variables" as *;
+
+
+.overLogo {
+  padding: 4rem 3.2rem;
+}
+
+.overHighDiv {
+    display: grid;
+
+    grid-template-columns: 1fr;
+    justify-content: space-between;
+}
+
+.sidebarNav {
+  padding: 0 2.4rem 2.4rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: auto;
+}
+
+
+.navItem, .navItemHideMenu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  text-decoration: none;
+  border-radius: 0 12px 12px 0;
+  padding: 1.6rem 0;
+}
+
+.activeNavItem {
+  background-color: $white;
+  padding: 1.6rem 3.1rem;
+  border-left: solid 4px #277c78;
+}
+
+.baritem {
+  display: flex;
+  align-items: center;
+}
+
+h4 {
+  margin-left: 1rem;
+  color: #b3b3b3;
+  font-size: $text-preset-3;
+}
+
+.activeNavItem h4 {
+  color: #277c78;
+}
+
+.noActive {
+  padding-left: 3.5rem;
+  font-size: $text-preset-3;
+}
+
+@media screen and (max-width: 958px) {
+.overHighDiv {
+  display: flex;
+}
+  .sidebarNav {
+    display: flex;
+    width: 10.4rem;
+    padding: 1rem;
+  }
+  .overContainer {
+    display: none;
+  }
+
+  .navItemHideMenu {
+    display: none;
+  }
+}
+
+@media(max-width:1024px){
+  .sidebar{
+    display: none;
+  }
+}

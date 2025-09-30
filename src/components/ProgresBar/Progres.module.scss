@@ -1,0 +1,150 @@
+@import '../../scss/variables';
+
+.budgetProgress {
+    max-width: 400px;
+    font-family: sans-serif;
+  
+    .budgetLabel {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 8px;
+    }
+  
+    .progressBarWrapper {
+        padding: 4px;
+      background-color: #f8f3ef;
+      border-radius: 6px;
+      height: $spacing-400;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+  
+    .progressBarFill {
+      background-color: #2c7a7b;
+      height:$spacing-300;
+      border-radius: 6px 0 0 6px;
+      transition: width 0.3s ease-in-out;
+    }
+  
+}
+
+.budget {
+    display: flex;
+    justify-content: start;
+    gap: 50%;
+}
+.spent {
+    display: flex;
+    gap: 15px;
+}
+.spent_bg {
+    background-color:$green;
+    height: 43px;
+    width: $spacing-50;
+    border-radius:$spacing-50;
+}
+
+.spent_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.spent_Title {
+    font-size: $text-preset-5;
+    font-weight: 400;
+    color: $grey-500;
+}
+.spent_number {
+    font-weight: 700;
+    font-size: $text-preset-4;
+    color:$grey-900
+}
+.remaining {
+    display: flex;
+    gap: 15px;
+}
+.remaining_bg {
+    background-color:$beige-100;
+    height: 43px;
+    width: $spacing-50;
+    border-radius:$spacing-50;
+}
+.remaining_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.remaining_titile {
+    font-size: $text-preset-5;
+    font-weight: 400;
+    color: $grey-500;
+}
+.remaining_number{
+    font-weight: 700;
+    font-size: $text-preset-4;
+    color:$grey-900
+}
+
+.LastSpending{
+    background-color: $beige-100;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius:$spacing-150;
+}
+
+.LastSpendingTitle{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    h2{
+        font-weight: 700;
+        font-size: $text-preset-3;
+        color: $grey-900;
+    }
+    .Navlink{
+        display: flex;
+        align-items: center;
+        font-size: $text-preset-4;
+        color: $grey-500;
+        gap: 12px;
+    }
+}
+
+.lastSpending_table{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.table_body {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 15%); 
+
+}
+.body_left{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    p{
+        font-weight: 700;
+        font-size: $text-preset-5;
+        color: $grey-900;
+    }
+
+}
+.body_right {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-end;
+}
+.right_tran {
+    font-weight: 700;
+    font-size: $text-preset-5;
+    color: $grey-900;
+}
+.date {
+    font-size: $text-preset-5;
+    color: $grey-500;
+}

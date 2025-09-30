@@ -1,0 +1,173 @@
+@use "../../scss/variables" as *;
+.registerContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    height: 100vh;
+    gap: 1rem;
+    overflow-y: hidden;
+}
+
+.finance {
+  background-image: url('/images/illustration-authentication.svg');
+  height: calc(100vh - 40px);
+  background-size: cover;
+  width: 100%;
+  margin: 20px;
+  margin-right: 0;
+  background-repeat:no-repeat;
+  border-radius: 12px;
+  padding: 40px;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items:start;
+  max-width: 560px;
+  img{
+    margin-bottom: auto;
+  }
+  div{
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  h4{
+    font-weight: 700;
+    font-size: $text-preset-1;
+    line-height: 120%;
+    color: $white;
+  }
+  p{
+    font-size: $text-preset-4;
+    color: $white;
+  }
+}
+.financed{
+  display: none;
+}
+
+.registerHeroImg {
+  max-height: 870px;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 1.2rem;
+}
+
+.registerInputs {
+  width: 100%;
+  max-width: 56rem;
+  background-color: #ffffff;
+  padding: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  border-radius: 1.2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.registerTitle {
+  font-size: 3.2rem;
+}
+
+.registerInp {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.registerInpStyle {
+  display: flex;
+  flex-direction: column;
+  color: $grey-500;
+  gap: 0.4rem;
+}
+
+.registerInpStyle p {
+    font-size: $text-preset-5;
+    color: $grey-500;
+    align-self: self-end;
+}
+
+.registerInpStyle label {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.registerInpStyle input {
+  height: 4.5rem;
+  border-radius: 0.8rem;
+  padding: 0px 8px;
+  border: 1px solid $beige-500;
+}
+
+.registerInpStyle input:focus {
+  outline: none;
+}
+
+.registerBtn {
+  height: 5.3rem;
+  border: 0;
+  background-color: $grey-900;
+  border-radius: 0.8rem;
+  color: $white;
+  font-size: $text-preset-4;
+  font-weight: 700;
+}
+
+.registerToNext {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 0.8rem;
+  font-size: $text-preset-4;
+}
+
+.registerToNext p {
+  color: $grey-500;
+}
+
+.registerToNext a {
+  font-weight: 700;
+  color: $grey-900;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 910px) {
+  .registerContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+  }
+
+  
+  .registerHeroImg {
+    display: none;
+  }
+
+  .registerInputs {
+    margin-top: auto;
+    margin: auto;
+
+
+  }
+  .finance{
+    display: none;
+  }
+
+  .financed {
+    display: block;
+    background-color: $grey-900;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.4rem 0;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: auto;
+  }
+}

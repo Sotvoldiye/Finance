@@ -1,0 +1,81 @@
+@use "../../scss/variables"as *;
+
+.navContainer {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  background-color:$grey-900;
+  width: 100%;
+  height: 7.4rem;
+  border-radius: 8px 8px 0 0;
+  padding: 0.8rem 2rem 0;
+  z-index: 100;
+}
+
+.sidebarNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  height: 100%;
+}
+
+.navItem {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-decoration: none;
+  border-radius: 12px 12px 0px 0;
+  padding: 0.8rem 2rem 0rem 2rem;
+}
+
+.activeNavItem {
+  background-color: $white;
+
+  border-bottom: solid 4px #277c78;
+  
+}
+
+.baritem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h4 {
+  color: #b3b3b3;
+  font-size: $text-preset-3;
+}
+
+.activeNavItem h4 {
+  color: #277c78;
+}
+
+.noActive {
+  font-size: $text-preset-3;
+}
+
+@media screen and (max-width: 650px) {
+  .navItem h4 {
+    display: none;
+  }
+
+  .navItem {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 958px) {
+  .navContainer {
+    display: block;
+    // z-index: 111;
+  }
+
+  .sidebarNav {
+    display: flex;
+  }
+}

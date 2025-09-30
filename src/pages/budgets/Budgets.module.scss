@@ -1,0 +1,154 @@
+@import "../../scss/variables";
+
+.budgetsContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 32px 40px;
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    h1{
+        font-weight: 700;
+        font-size: $text-preset-1; ;
+    }
+    button{
+        padding: 16px;
+        font-weight: 700;
+        font-size: $text-preset-4;
+        color: $white;
+        background-color:$grey-900;
+        border:none;
+        border-radius: $spacing-100;
+        transition: 0.3s;
+    }
+    button:active{
+        transform: scale(0.96);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) inset;
+    }
+}
+
+.budget_grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    margin-top: 32px;
+    gap: 24px;
+}
+.budget_Chart {
+    background-color:$white;
+    padding: 32px;
+    border-radius: $spacing-150;
+    .spend{
+        display: flex;
+        flex-direction: column;
+        margin-top: 32px;
+    }
+}
+
+.spending_Month {
+    font-weight: 700;
+    font-size: $text-preset-2;
+    color: $grey-900;
+}
+.spending_status {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    align-items: center;
+}
+
+.left_spend{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.spend_Bgcolor {
+    width: $spacing-50;
+    height: 21px;
+    border-radius: $spacing-100;
+    background-color: $green;
+}
+.spend_Name {
+    font-weight: 400;
+    font-size: $text-preset-4;
+    color: $grey-500;
+}
+.spend_Money {
+    font-size: $text-preset-3;
+    font-weight: 700;
+    align-items: center;
+    span{
+        font-weight: 400;
+        font-size: $text-preset-5;
+        color: $grey-500;
+    }
+}
+
+.budget_status {
+   .status_cart{
+    background-color: $white;
+    padding: 32px;
+    border-radius: $spacing-150
+   }
+}
+
+.status_cart_Header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button{
+        border:none;
+    }
+}
+
+.status_title{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    p{
+        width: $spacing-200;
+        border-radius:50%;
+        background-color: $green;
+        height: $spacing-200;
+    }
+}
+
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Tashqi qoraygan fon
+    z-index: 100; // Modal ostida, lekin boshqa narsalarning ustida
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .edit{
+    position: absolute;
+    left: 92%;
+    top: 12%;   
+    background-color: $white;
+    padding: 12px 20px;
+    border-radius:$spacing-100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Shadow qo‘shish */
+  }
+
+  .editMessage{
+    padding-bottom: 12px;
+  }
+  .deleteMessage{
+    color: $red;
+    padding-top: 12px;
+    border-top: 1px solid $grey-100;
+  }
+
+  .editMessage:hover,.deleteMessage:hover{
+    cursor: pointer;
+  }

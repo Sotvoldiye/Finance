@@ -1,0 +1,349 @@
+@use "../../scss/variables" as *;
+
+.overviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 3.2rem;
+  margin-bottom: 3.2rem;
+  width: 100%;
+  max-width: 1540px;
+  padding-right: 4rem;
+  padding-left: 4rem;
+  height: 100%;
+  // overflow-y: hidden;
+}
+
+.overTitle {
+  font-size: $text-preset-1;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.overviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  width: 100%;
+  max-width: 1540px;
+}
+
+.overAmounts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2.4rem;
+}
+
+.overAmountsItem {
+  height: 11.9rem;
+  background-color: $white;
+  width: 100%;
+  max-width: 33.733rem;
+  border-radius: $spacing-150;
+  display: flex;
+  padding: 2.4rem;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-direction: column;
+  font-size: $text-preset-4;
+  line-height: 150%;
+  color: $grey-500;
+}
+
+.overAmountsItem:first-child {
+  background-color: $grey-900;
+  color: $white;
+}
+
+.currentBalance {
+  font-size: $text-preset-1;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.overAllInfos {
+    display: flex;
+    gap: 2.4rem;
+    height: 100%;
+    width: 100%;
+    max-width: 1540px;
+    margin-bottom: 3rem;
+}
+
+.potsTran {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    height: 100%;
+}
+
+.budgetBills {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+}
+
+.pots {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    padding: 3.2rem;
+    background-color: $white;
+    height: 100%;
+    border-radius: $spacing-150;
+}
+
+.potsTitleView {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.potsTitle {
+    font-size: $text-preset-2;
+    font-weight: 700;
+}
+
+.viewPots {
+    display: flex;
+    align-items: center;
+    font-size: $text-preset-4;
+    gap: 1.2rem;
+    color: $grey-500;
+}
+  .green{
+    color: $green;
+  }
+
+.potsContent {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  align-items: center;
+  gap: 2rem;
+}
+
+
+.potsContentItem {
+  display: grid;
+  grid-template-columns:  1fr 1fr;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.potsContentItem:first-child {
+  width: 100%;
+  max-width: 24.7rem;
+  background-color: $beige-100;
+  padding: 1.6rem 2rem;
+  border-radius: $spacing-150;
+}
+
+.potsContentItem:first-child .itemInto {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.itemIntoTotalSaved {
+  font-size: $text-preset-4;
+  line-height: 150%;
+  color: $grey-500;
+}
+
+.itemIntoTotalSavedAmount {
+  font-size: $text-preset-1;
+  font-weight: 700;
+  color: $grey-900;
+}
+
+
+
+.potsContentItem:last-child {
+  flex-wrap: wrap;
+}
+
+.itemIntoLine {
+  height: 4.3rem;
+  width: $spacing-50;
+  border-radius: $spacing-150;
+}
+
+
+
+.itemIntoDiv {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  width: 100%;
+  max-width: 13.05rem;
+}
+
+.itemIntoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.itemIntoTotalSavedSecond {
+  font-size: $text-preset-5;
+  line-height: 150%;
+  color: $grey-500;
+}
+
+.itemIntoTotalSavedAmountSecond {
+  font-size: $text-preset-4;
+  font-weight: 700;
+  line-height: 150%;
+}
+
+.tranList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.2rem;
+}
+
+.tranListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px $grey-100 solid;
+}
+
+.tranItemPer img {
+  border-radius: 50%;
+}
+
+.tranItemPer {
+  display: flex;
+  align-items: center;
+  font-size: $text-preset-3;
+  font-weight: 700;
+  color: $grey-900;
+  gap: 1.6rem;
+}
+
+.tranItemSec {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  gap: 0.8rem;
+}
+
+.tranItemSecAmount {
+  font-size: $text-preset-4;
+  font-weight: 700;
+}
+
+.tranItemDate {
+  font-size: $text-preset-5;
+  color: $grey-500;
+}
+
+.budgets {
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 780px;
+  height: 40rem;
+  background-color: $white;
+  padding: 32px;
+  .budgetsTitle{
+    margin-bottom: 20px;
+    align-items:center;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.bills {
+  width: 100%;
+  height: 327px;
+  background-color: $white;
+  padding: 3.2rem;
+  border-radius: $spacing-150;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.billsTitleView {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.billsList {
+  display: flex;
+ 
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.billsItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1.6rem;
+  background-color: $beige-100;
+  border-radius: $spacing-100;
+  border-left: 4px solid $green;
+  font-size: $text-preset-4;
+
+}
+
+.billsItemName {
+  color: $grey-500;
+}
+
+.billsItemAmount {
+  font-weight: 700;
+  color: $grey-900;
+}
+
+@media screen and (max-width: 703px) {
+  .currentBalance {
+    font-size: $text-preset-3;
+  }
+}
+@media screen and (max-width: 470px) {
+  .overAmounts {
+    flex-direction: column;
+  }
+
+  .currentBalance {
+    font-size: $text-preset-1;
+  }
+}
+@media screen and (max-width: 703px) {
+.overAllInfos {
+  flex-direction: column;
+  width: 100%;
+}
+.potsContent {
+  width: 100%;
+  display: grid;
+  grid-template-columns:  1fr; 
+  align-items: center;
+  gap: 2rem;
+}
+.overviewContainer{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+}
+

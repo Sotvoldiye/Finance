@@ -1,0 +1,12 @@
+
+main{
+    height: 100vh;
+}
+
+@media screen and (max-width: 958px) {
+    .main_Layot {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+}
