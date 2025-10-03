@@ -29,7 +29,7 @@ a {
 }
 
 a:hover {
-  text-decoration: underline; /* Improve accessibility */
+  text-decoration: none; /* Improve accessibility */
 }
 
 body {
@@ -102,4 +102,7 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr;
   }
+  .main.sidebar {
+  padding-left: 0;
+}
 }

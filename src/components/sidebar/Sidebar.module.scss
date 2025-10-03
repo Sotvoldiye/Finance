@@ -7,7 +7,7 @@
 
 .overHighDiv {
     display: grid;
-
+    overflow: hidden;
     grid-template-columns: 1fr;
     justify-content: space-between;
 }
@@ -19,6 +19,7 @@
   flex-direction: column;
   gap: 4px;
   margin-bottom: auto;
+  overflow: hidden;
 }
 
 
