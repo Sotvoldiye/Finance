@@ -1,56 +1,114 @@
+@use "../../scss/variables" as *;
+
 .transActionsContaniner {
-    padding: 20px;
-  
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-  
-      thead {
-        background-color: #f5f5f5;
-  
-        tr {
-          th {
-            text-align: left;
-            padding: 12px 15px;
-            font-weight: 600;
-            font-size: 16px;
-            color: #333;
-            border-bottom: 2px solid #ddd;
-          }
+  padding: 20px;
+
+  .transContaniner {
+    background-color: $white;
+    padding: $spacing-400;
+    border-radius: 12px;
+    margin-top: 32px;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    .left_section {
+      display: flex;
+      gap: $spacing-300;
+    }
+    .allSort {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      p {
+        font-size: 14px;
+        color: $grey-500;
+      }
+      select {
+        padding: 12px;
+        border-radius: $spacing-100;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        outline: none;
+
+        // default strelkani olib tashlash
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        // o'ng tar afda joy bo'sh qoldirish uchun
+        padding-right: 30px;
+
+        // custom arrow qo'shish uchun fon rasmi
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 16px;
+      }
+      // select:after {
+      //   border: none;
+      //   outline: none;
+      // }
+    }
+    .allcategory {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    thead {
+      tr {
+        th {
+          text-align: left;
+          padding: 12px 15px;
+          font-weight: 600;
+          font-size: 16px;
+          color: $grey-500;
+          border-bottom: 1px solid #e0e0e0;
         }
       }
-  
-      tbody {
-        tr {
-          border-bottom: 1px solid #e0e0e0;
-          transition: background-color 0.3s ease;
+    }
 
-  
-          td {
-            padding: 12px 15px;
-            font-size: 14px;
-            color: #555;
-            vertical-align: middle;
-  
-            p {
-              margin: 0;
-            }
+    tbody {
+      tr {
+        border-bottom: 1px solid #e0e0e0;
+        transition: background-color 0.3s ease;
+
+        td {
+          padding: 12px 15px;
+          font-size: 14px;
+          color: #555;
+          vertical-align: middle;
+
+          p {
+            margin: 0;
           }
         }
       }
     }
   }
-  
-  .table_image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-    vertical-align: middle;
+}
+
+.table_image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.img_name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p {
+    font-weight: 700;
   }
-  
-  .img_name{
-    display: flex;
-  }
+}
