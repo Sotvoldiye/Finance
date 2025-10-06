@@ -88,7 +88,11 @@ const BudgetProgress = ({ max, theme, tranactions }) => {
                     {t.amount < 0 ? `-$${Math.abs(t.amount)}` : `+$${t.amount}`}
                   </p>
                   <p className={styles.date}>
-                    {t.date || "No date"}
+                    {new Date(t.date).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}{" "}
                   </p>
                 </div>
               </div>
@@ -97,7 +101,6 @@ const BudgetProgress = ({ max, theme, tranactions }) => {
         </div>
       )}
     </div>
-
   );
 };
 
