@@ -35,6 +35,7 @@ const Transactions = () => {
             <input
               type="text"
               value={searchTerm}
+              placeholder="Search transaction"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <i className="fa-solid fa-magnifying-glass"></i>
@@ -84,61 +85,62 @@ const Transactions = () => {
             </tr>
           </thead>
           <tbody>
-            {tranactions &&
-              tranactions
-                .filter((t) =>
-                  category === "t"
-                    ? true
-                    : t.category === category &&
-                      t.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLocaleLowerCase())
-                )
-                .sort((a, b) => {
-                  switch (sortBy) {
-                    case "latest":
-                      return new Date(b.date) - new Date(a.date);
-                    case "oldest":
-                      return new Date(a.date) - new Date(b.date);
-                    case "az":
-                      return a.name.localeCompare(b.name);
-                    case "za":
-                      return b.name.localeCompare(a.name);
-                    case "highest":
-                      return b.amount - a.amount;
-                    case "lowest":
-                      return a.amount - b.amount;
-                    default:
-                      return 0;
-                  }
-                })
-                .map((t) => (
-                  <tr key={t.id}>
-                    <td className={style.img_name}>
-                      <img
-                        className={style.table_image}
-                        src={t.avatar}
-                        alt=""
-                      />
-                      <p>{t.name}</p>
-                    </td>
-                    <td>
-                      <p>{t.category}</p>
-                    </td>
-                    <td>
-                      <p>
-                        {new Date(t.date).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </p>
-                    </td>
-                    <td>
-                      <p>{t.amount}</p>
-                    </td>
-                  </tr>
-                ))}
+            {tranactions
+              .filter((t) => {
+                const matchCategory =
+                  category === "t" || t.category === category;
+                const matchSearch = t.name
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase());
+                return matchCategory && matchSearch;
+              })
+              .sort((a, b) => {
+                switch (sortBy) {
+                  case "latest":
+                    return new Date(b.date) - new Date(a.date);
+                  case "oldest":
+                    return new Date(a.date) - new Date(b.date);
+                  case "az":
+                    return a.name.localeCompare(b.name);
+                  case "za":
+                    return b.name.localeCompare(a.name);
+                  case "highest":
+                    return b.amount - a.amount;
+                  case "lowest":
+                    return a.amount - b.amount;
+                  default:
+                    return 0;
+                }
+              })
+              .map((t) => (
+                <tr key={t.id}>
+                  <td className={style.img_name}>
+                    <img className={style.table_image} src={t.avatar} alt="" />
+                    <p>{t.name}</p>
+                  </td>
+                  <td>
+                    <p>{t.category}</p>
+                  </td>
+                  <td>
+                    <p>
+                      {new Date(t.date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </td>
+                  <td>
+                    <p
+                      className={`${style.amount} ${
+                        t.amount > 0 ? style.amountPlus : style.amountMinus
+                      }`}
+                    >
+                      {t.amount > 0 ? `+${t.amount}` : t.amount}
+                    </p>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

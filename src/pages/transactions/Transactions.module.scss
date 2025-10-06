@@ -25,35 +25,44 @@
         font-size: 14px;
         color: $grey-500;
       }
-      select {
-        padding: 12px;
-        border-radius: $spacing-100;
-        border: 1px solid #ccc;
-        background-color: #fff;
-        outline: none;
-
-        // default strelkani olib tashlash
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-
-        // o'ng tar afda joy bo'sh qoldirish uchun
-        padding-right: 30px;
-
-        // custom arrow qo'shish uchun fon rasmi
-        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-        background-repeat: no-repeat;
-        background-position: right 10px center;
-        background-size: 16px;
-      }
-      // select:after {
-      //   border: none;
-      //   outline: none;
-      // }
     }
+
+    select {
+      padding: 12px;
+      border-radius: $spacing-100;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      outline: none;
+
+      // default strelkani olib tashlash
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      // o'ng tar afda joy bo'sh qoldirish uchun
+      padding-right: 30px;
+
+      // custom arrow qo'shish uchun fon rasmi
+      background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+    }
+    option {
+      border-radius: 5px;
+      background-color: white;
+      border: none;
+      outline: none;
+    }
+
     .allcategory {
       display: flex;
       align-items: center;
+       gap: 8px;
+      p {
+        font-size: 14px;
+        color: $grey-500;
+      }
     }
   }
 
@@ -95,6 +104,21 @@
   }
 }
 
+.searchingInputs{
+display: flex;
+align-items: center;
+border:1px solid $beige-500;
+padding:2px ;
+padding-right: 20px;
+padding-left: 20px;
+max-height: 45px;
+border-radius: 8px;
+input{
+  border:none;
+  outline: none;
+}
+}
+
 .table_image {
   width: 40px;
   height: 40px;
@@ -111,4 +135,16 @@
   p {
     font-weight: 700;
   }
+}
+.amount{
+  font-size: $text-preset-4;
+  font-weight: bold;
+}
+
+.amountPlus{
+  color: $green;
+}
+
+.amountMinus{
+  color: $grey-900;
 }

@@ -87,6 +87,9 @@
 }
 
 .budget_status {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
    .status_cart{
     background-color: $white;
     padding: 32px;
@@ -108,10 +111,12 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 20px;
+    font-size: $text-preset-2;
+    font-weight: 700;
     p{
         width: $spacing-200;
         border-radius:50%;
-        background-color: $green;
+        // background-color: $green;
         height: $spacing-200;
     }
 }
