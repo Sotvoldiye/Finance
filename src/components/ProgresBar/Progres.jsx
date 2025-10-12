@@ -62,7 +62,6 @@ const BudgetProgress = ({ max, theme, tranactions }) => {
           </div>
         </div>
       </div>
-
       {tranactions.length > 0 && (
         <div className={styles.LastSpending}>
           <div className={styles.LastSpendingTitle}>

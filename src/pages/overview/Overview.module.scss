@@ -262,7 +262,7 @@
   background-color: $white;
   padding: 32px;
   .budgetsTitle{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     align-items:center;
     width: 100%;
     display: flex;
@@ -347,3 +347,60 @@
 }
 }
 
+
+.spend_container {
+  display: flex;
+  gap: 32px; // elementlar orasini ajratish
+  align-items: flex-start; // chart va statuslarni bir chiziqda joylash
+}
+
+
+.spending_Month {
+    font-weight: 700;
+    font-size: $text-preset-2;
+    color: $grey-900;
+}
+.spendingBudgetContainer{
+    display: flex;
+  flex-direction: column;
+}
+
+.spending_status {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items:start;
+  width: 100%;
+  margin-top: 16px;
+  height: 100%;
+
+}
+
+
+.left_spend{
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+.spend_Bgcolor {
+    width: $spacing-50;
+    height: 43px;
+    border-radius: $spacing-100;
+}
+.spend_Name {
+  align-items: start;
+    font-weight: 400;
+    font-size: $text-preset-5;
+    color: $grey-500;
+    margin-bottom: 8px;
+}
+.spend_Money {
+    font-size: $text-preset-4;
+    align-items: start;
+
+    span{
+        font-weight: bold;
+        font-size: $text-preset-4;
+        color: $grey-900;
+    }
+}

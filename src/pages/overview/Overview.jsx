@@ -8,34 +8,42 @@ const Overview = () => {
   const { data, isPending } = useCollectionsData();
   const [pots, setPots] = useState([]);
   const [total, setTotal] = useState(0);
-  const [budgets, setBudgets] = useState([])
-  const [budgetTotal, setBudgetTotal] = useState(0)
+  const [budgets, setBudgets] = useState([]);
+  const [budgetTotal, setBudgetTotal] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+
   useEffect(() => {
-      if (data && data.pots) {
-          setPots(data.pots);
-            const totalSum = data.pots.reduce((acc, item) => acc + item.total, 0);
-          setTotal(totalSum);
-      }
-      if(data && data.budgets){
-          setBudgets(data.budgets)
-          const totalBudgets = data.budgets.reduce((acc, item)=> acc + item.maximum, 0)
-          setBudgetTotal(totalBudgets)
-      }
+    if (data && data.pots) {
+      setPots(data.pots);
+      const totalSum = data.pots.reduce((acc, item) => acc + item.total, 0);
+      setTotal(totalSum);
+    }
+    if (data && data.budgets) {
+      setBudgets(data.budgets);
+      const totalBudgets = data.budgets.reduce(
+        (acc, item) => acc + item.maximum,
+        0
+      );
+      setBudgetTotal(totalBudgets);
+    }
+    if (data && data.transactions) {
+      setTransactions(data.transactions || []); // Har doim array bo'lishini ta'minlash
+    }
   }, [data]);
-  console.log(data)
-  
+  console.log(data);
+
   return (
     <div className={style.overviewContainer}>
       <h1 className={style.overTitle}>Overview</h1>
       <div className={style.overviewContent}>
         <ul className={style.overAmounts}>
-          <li  className={style.overAmountsItem}>
+          <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Current Balance</p>
             <p className={style.currentBalance}>
               ${data && data.balance.current}.00
             </p>
           </li>
-          <li  className={style.overAmountsItem}>
+          <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Income</p>
             <p className={style.currentBalance}>
               ${data && data.balance.income}
@@ -76,7 +84,10 @@ const Overview = () => {
                     data.pots.slice(0, 4).map((d) => {
                       return (
                         <div key={d.id} className={style.itemIntoDiv}>
-                          <div className={style.itemIntoLine} style={{backgroundColor:d.theme}}></div>
+                          <div
+                            className={style.itemIntoLine}
+                            style={{ backgroundColor: d.theme }}
+                          ></div>
                           <div className={style.itemIntoContent}>
                             <p className={style.itemIntoTotalSavedSecond}>
                               {d.name}
@@ -110,7 +121,12 @@ const Overview = () => {
                     return (
                       <div key={t.id} className={style.tranListItem}>
                         <div className={style.tranItemPer}>
-                          <img src={t.avatar} alt={t.name} width={40} height={40} />
+                          <img
+                            src={t.avatar}
+                            alt={t.name}
+                            width={40}
+                            height={40}
+                          />
                           <h5>{t.name}</h5>
                         </div>
                         <div className={style.tranItemSec}>
@@ -142,7 +158,7 @@ const Overview = () => {
 
           <div className={style.budgetBills}>
             <div className={style.budgets}>
-            <div className={style.budgetsTitle}>
+              <div className={style.budgetsTitle}>
                 <h2 className={style.potsTitle}>Budgets</h2>
                 <NavLink to="/budgets">
                   <p className={style.viewPots}>
@@ -150,11 +166,42 @@ const Overview = () => {
                   </p>
                 </NavLink>
               </div>
-                  {data ? <Chart budgetTotal={budgetTotal} budgets={data.budgets} /> :   <p>Loading ...</p>           }
+              <div className={style.spend_container}>
+             {data ? (
+                <Chart budgetTotal={budgetTotal} budgets={data.budgets} />
+              ) : (
+                <p>Loading ...</p>
+              )}
+              <div className={style.spendingBudgetContainer}>
+                 {budgets.slice(0,5).map((m) => {
+
+                let theme = m.theme;
+                return (
+                  <div key={m.id} className={style.spending_status}>
+                    <div className={style.left_spend}>
+                      <div
+                        style={{ backgroundColor: theme }}
+                        className={style.spend_Bgcolor}
+                      ></div>
+                     <div> <div className={style.spend_Name}>{m.category}</div>
+                        <p className={style.spend_Money}>
+                        <span> ${m.maximum}</span>
+                      </p></div>
+                    </div>
+                    <div>
+                    
+                    </div>
+                  </div>
+                );
+              })}
+              </div>
+             
+              </div>
+ 
             </div>
 
             <div className={style.bills}>
-            <div className={style.billsTitleView}>
+              <div className={style.billsTitleView}>
                 <h2 className={style.potsTitle}>Recurring Bills</h2>
                 <NavLink to="/recurringbills">
                   <p className={style.viewPots}>
@@ -164,18 +211,18 @@ const Overview = () => {
               </div>
 
               <ul className={style.billsList}>
-                  <li className={style.billsItem}>
-                    <p className={style.billsItemName}>Paid Bills</p>
-                    <p className={style.billsItemAmount}>$190.00</p>
-                  </li>
-                  <li className={style.billsItem}>
-                    <p className={style.billsItemName}>Total Upcoming</p>
-                    <p className={style.billsItemAmount}>$194.98</p>
-                  </li>
-                  <li className={style.billsItem}>
-                    <p className={style.billsItemName}>Due Soon</p>
-                    <p className={style.billsItemAmount}>$59.98</p>
-                  </li>
+                <li className={style.billsItem}>
+                  <p className={style.billsItemName}>Paid Bills</p>
+                  <p className={style.billsItemAmount}>$190.00</p>
+                </li>
+                <li className={style.billsItem}>
+                  <p className={style.billsItemName}>Total Upcoming</p>
+                  <p className={style.billsItemAmount}>$194.98</p>
+                </li>
+                <li className={style.billsItem}>
+                  <p className={style.billsItemName}>Due Soon</p>
+                  <p className={style.billsItemAmount}>$59.98</p>
+                </li>
               </ul>
             </div>
           </div>

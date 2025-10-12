@@ -1,21 +1,39 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { db } from "../firebase/config";
 import { collection, onSnapshot } from "firebase/firestore";
-
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
 export function useCollection(c) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, c), (snapshot) => {
-      const data = [];
-      snapshot.forEach((d) => {
-        data.push({ id: d.id, ...d.data() });
-      });
-      setData(data);
+    const unsubBudgets = onSnapshot(collection(db, "budgets"), (snapshot) => {
+      const budgets = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setData((prev) => ({ ...prev, budgets }));
     });
-    return () => unsubscribe();
-  }, [c]);
 
+    const unsubPots = onSnapshot(collection(db, "pots"), (snapshot) => {
+      const pots = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setData((prev) => ({ ...prev, pots }));
+    });
+
+    const unsubTransactions = onSnapshot(
+      collection(db, "transactions"),
+      (snapshot) => {
+        const transactions = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setData((prev) => ({ ...prev, transactions }));
+      }
+    );
+
+    return () => {
+      unsubBudgets();
+      unsubPots();
+      unsubTransactions();
+    };
+  }, []);
   return { data };
 }

@@ -1,4 +1,4 @@
-@import "../../scss/variables";
+@use "../../scss/variables" as *;
 
 .budgetsContainer{
     display: flex;
@@ -68,7 +68,6 @@
     width: $spacing-50;
     height: 21px;
     border-radius: $spacing-100;
-    background-color: $green;
 }
 .spend_Name {
     font-weight: 400;
@@ -91,9 +90,12 @@
     flex-direction: column;
     gap: 24px;
    .status_cart{
+    display: flex;
+    flex-direction: column;
     background-color: $white;
     padding: 32px;
-    border-radius: $spacing-150
+    border-radius: $spacing-150;
+    width: 100%;
    }
 }
 
@@ -116,7 +118,6 @@
     p{
         width: $spacing-200;
         border-radius:50%;
-        // background-color: $green;
         height: $spacing-200;
     }
 }
@@ -135,25 +136,86 @@
     justify-content: center;
   }
 
-  .edit{
+.status_cart {
+  position: relative; // 🔧 har bir kartani kontekst qiladi
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  padding: 32px;
+  border-radius: $spacing-150;
+  width: 100%;
+}
+
+.status_cart_Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative; // 🔧 edit menyu shu konteynerga nisbatan joylashadi
+  button {
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.1s ease;
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  // ✅ Edit/Delete menyu
+  .edit {
     position: absolute;
-    left: 92%;
-    top: 12%;   
+    top: 36px;
+    right: 0;
     background-color: $white;
-    padding: 12px 20px;
-    border-radius:$spacing-100;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Shadow qo‘shish */
+    border-radius: $spacing-100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+    z-index: 50;
+    overflow: hidden;
+    animation: fadeIn 0.15s ease-in-out;
   }
 
-  .editMessage{
-    padding-bottom: 12px;
-  }
-  .deleteMessage{
-    color: $red;
-    padding-top: 12px;
-    border-top: 1px solid $grey-100;
+  .editMessage,
+  .deleteMessage {
+    padding: 10px 16px;
+    font-size: $text-preset-4;
+    border: none;
+    background: transparent;
+    text-align: left;
+    color: $grey-900;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  .editMessage:hover,.deleteMessage:hover{
+  .editMessage:hover {
+    background-color: $grey-100;
     cursor: pointer;
   }
+
+  .border {
+    border-top: 1px solid $grey-300;
+    margin: 0 8px;
+  }
+
+  .deleteMessage {
+    color: $red;
+  }
+
+  .deleteMessage:hover {
+    background-color: rgba($red, 0.08);
+    cursor: pointer;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

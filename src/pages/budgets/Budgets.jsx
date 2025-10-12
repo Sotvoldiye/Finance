@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import style from "./Budgets.module.scss";
 import { Chart } from "../../components/Chart/ApexChart";
 import { useCollectionsData } from "../../hooks/useCollectionsData";
 import { Dot } from "../../components/Select";
 import Input from "../../components/Input";
-import Progres from "../../components/ProgresBar/Progres";
 import BudgetProgress from "../../components/ProgresBar/Progres";
 import Modal from "../../components/Modal/Modal";
 import GroupedSelect from "../../components/Input";
@@ -14,8 +13,19 @@ const Budgets = () => {
   const [pots, setPots] = useState([]);
   const [total, setTotal] = useState(0);
   const [budgets, setBudgets] = useState([]);
-  const [tranactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [budgetTotal, setBudgetTotal] = useState(0);
+  const [addBudget, setAddBudget] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selectedBudgetId, setSelectedBudgetId] = useState(null);
+  const [selectedBudget, setSelectedBudget] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
+
+  const toggleModal = (id) => {
+    setOpenMenuId((prev) => (prev === id ? null : id));
+  };
+
   useEffect(() => {
     if (data && data.pots) {
       setPots(data.pots);
@@ -30,58 +40,107 @@ const Budgets = () => {
       );
       setBudgetTotal(totalBudgets);
     }
-    if (data && data.transactions) {
-      setTransactions(data.transactions);
+    if (data) {
+      setTransactions(data.transactions || []);
     }
   }, [data]);
 
-  // modal uchun
-  const [addBudget, setAddBudget] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-  const [edditBudget, setEditBudget] = useState(false);
-  const [deleteModal, setDelete] = useState(false);
-  const toggleModal = () => {
-    setEditBudget((prev) => !prev); // toggle holati
+  // ✅ DELETE modal
+  const handleDeleteClick = useCallback((id) => {
+    setSelectedBudgetId(id);
+    setDeleteModal(true);
+    setOpenMenuId(null);
+  }, []);
+
+  // ✅ EDIT modal
+  const handleEditClick = useCallback(
+    (id) => {
+      const budgetToEdit = budgets.find((b) => b.id === id);
+      setSelectedBudgetId(id);
+      setSelectedBudget(budgetToEdit);
+      setEditModal(true);
+      setOpenMenuId(null);
+    },
+    [budgets]
+  );
+
+  const handleDeleteBudget = (deletedId) => {
+    setBudgets((prev) => prev.filter((b) => b.id !== deletedId));
+    setDeleteModal(false);
+    setSelectedBudgetId(null);
   };
+
+  const handleUpdatedBudget = (updatedBudget) => {
+    setBudgets((prev) =>
+      prev.map((b) =>
+        b.id === updatedBudget.id ? { ...b, ...updatedBudget } : b
+      )
+    );
+  };
+
   return (
     <div className={style.budgetsContainer}>
       <div className={style.nav}>
         <h1>Budgets</h1>
         <button onClick={() => setAddBudget(true)}>+ Add Budgets</button>
       </div>
+
       <div className={style.budget_grid}>
+        {/* -------- Left (Chart + Summary) -------- */}
         <div>
           <div className={style.budget_Chart}>
-            {" "}
             {data ? (
-              <Chart budgetTotal={budgetTotal} budgets={data.budgets} />
+              <Chart
+                key={budgetTotal + budgets.length}
+                budgetTotal={budgetTotal}
+                budgets={data.budgets}
+              />
             ) : (
               <p>Loading ...</p>
             )}
             <div className={style.spend}>
-              <h2 className={style.spending_Month}>Spendding Summary</h2>
+              <h2 className={style.spending_Month}>Spending Summary</h2>
               <div>
-                <div className={style.spending_status}>
-                  <div className={style.left_spend}>
-                    <div className={style.spend_Bgcolor}></div>
-                    <p className={style.spend_Name}>Entertainment</p>
-                  </div>
-                  <div>
-                    <p className={` ${style.spend_Money}`}>
-                      $15.00 <span>of $50.00</span>
-                    </p>
-                  </div>
-                </div>
+                {budgets.map((m) => {
+                  const budgetTransactions = (transactions || []).filter(
+                    (t) => t.category === m.category
+                  );
+                  const totalPlus = budgetTransactions
+                    .filter((t) => t.amount > 0)
+                    .reduce((sum, t) => sum + t.amount, 0);
+                  const totalMinus = budgetTransactions
+                    .filter((t) => t.amount < 0)
+                    .reduce((sum, t) => sum + t.amount, 0);
+                  const spent = Math.abs(totalPlus + totalMinus);
+
+                  return (
+                    <div key={m.id} className={style.spending_status}>
+                      <div className={style.left_spend}>
+                        <div
+                          style={{ backgroundColor: m.theme }}
+                          className={style.spend_Bgcolor}
+                        ></div>
+                        <p className={style.spend_Name}>{m.category}</p>
+                      </div>
+                      <div>
+                        <p className={style.spend_Money}>
+                          ${spent.toFixed(2)} <span>of ${m.maximum}</span>
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
+
+        {/* -------- Right (Budgets List) -------- */}
         <div className={style.budget_status}>
           {budgets.map((m) => {
-            const budgetTransactions = tranactions.filter(
+            const budgetTransactions = (transactions || []).filter(
               (t) => t.category === m.category
             );
-            if (budgetTransactions.length === 0) return null;
 
             return (
               <div key={m.id} className={style.status_cart}>
@@ -90,73 +149,30 @@ const Budgets = () => {
                     <p style={{ backgroundColor: m.theme }}></p>
                     {m.category}
                   </h1>
-                  <button onClick={toggleModal}>
-                    {edditBudget ? (
-                      <img src="./images/icon-ellipsis.svg" alt="" />
-                    ) : (
-                      <img src="./images/icon-ellipsis.svg" alt="" />
-                    )}
+                  <button onClick={() => toggleModal(m.id)}>
+                    <img src="./images/icon-ellipsis.svg" alt="ellipsis" />
                   </button>
-                  {edditBudget && (
+
+                  {openMenuId === m.id && (
                     <div className={style.edit}>
                       <div
                         className={style.editMessage}
-                        onClick={() => setEditModal(true)}
-                        on
+                        onClick={() => handleEditClick(m.id)} // ✅ FIXED: p.id -> m.id
                       >
                         Edit Budget
-                      </div>{" "}
+                      </div>
+                      <div className={style.border}></div>
                       <div
                         className={style.deleteMessage}
-                        onClick={() => setDelete(true)}
+                        onClick={() => handleDeleteClick(m.id)} // ✅ FIXED: p.id -> m.id
                       >
                         Delete Budget
                       </div>
                     </div>
                   )}
-                  {addBudget && (
-                    <Modal
-                      setAddBudget={setAddBudget}
-                      title={"Add New Budget"}
-                      type={"number"}
-                      category={
-                        "Choose a category to set a spending budget. These categories can help you monitor spending."
-                      }
-                      Dot={Dot}
-                      GroupedSelect={GroupedSelect}
-                      button={"Add Budget"}
-                    />
-                  )}
-                  {editModal && (
-                    <Modal
-                      setAddBudget={setEditModal}
-                      title={"Edit Budget"}
-                      type={"number"}
-                      category={
-                        "As your budgets change, feel free to update your spending limits."
-                      }
-                      Dot={Dot}
-                      GroupedSelect={GroupedSelect}
-                      button={"Save Changes"}
-                    />
-                  )}
-                  {deleteModal && (
-                    <Modal
-                      setAddBudget={setDelete}
-                      title={"Delete ‘Entertainment’?"}
-                      type={null}
-                      category={
-                        "Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever."
-                      }
-                      Dot={null}
-                      GroupedSelect={null}
-                      button={null}
-                      delate={"Yes, Confirm Deletion"}
-                      retry={"No, Go Back"}
-                    />
-                  )}
                 </div>
-                <div className="flex gap-2">
+
+                <div>
                   <BudgetProgress
                     max={m.maximum}
                     theme={m.theme}
@@ -168,6 +184,51 @@ const Budgets = () => {
           })}
         </div>
       </div>
+
+      {/* -------- ADD MODAL -------- */}
+      {addBudget && (
+        <Modal
+          setAddBudget={setAddBudget}
+          title="Add New Budget"
+          type="number"
+          category="Choose a category to set a spending budget. These categories can help you monitor spending."
+          Dot={Dot}
+          GroupedSelect={GroupedSelect}
+          button="Add Budget"
+          onAdded={(newBudget) => setBudgets((prev) => [...prev, newBudget])}
+          isEditing={false}
+        />
+      )}
+
+      {/* -------- EDIT MODAL -------- */}
+      {editModal && (
+        <Modal
+          setAddBudget={setEditModal}
+          title="Edit Budget"
+          type="number"
+          category="As your budgets change, feel free to update your spending limits."
+          Dot={Dot}
+          GroupedSelect={GroupedSelect}
+          isEditing={true}
+          existingData={selectedBudget}
+          button="Save Changes"
+          onUpdated={handleUpdatedBudget}
+          id={selectedBudgetId}
+        />
+      )}
+
+      {/* -------- DELETE MODAL -------- */}
+      {deleteModal && (
+        <Modal
+          setAddBudget={setDeleteModal}
+          title="Delete Budget?"
+          category="Are you sure you want to delete this budget? This action cannot be reversed."
+          delate="Yes, Confirm Deletion"
+          retry="No, Go Back"
+          id={selectedBudgetId}
+          onDeleted={handleDeleteBudget}
+        />
+      )}
     </div>
   );
 };

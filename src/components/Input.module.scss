@@ -1,0 +1,11 @@
+@use "../scss/variables" as *;
+
+.label{
+    font-size: $text-preset-5;
+    font-weight: bold;
+    color:$grey-500
+}
+
+.select{
+    font-size: $text-preset-4;
+}

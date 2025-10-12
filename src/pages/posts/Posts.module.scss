@@ -1,0 +1,167 @@
+@use "../../scss/variables" as *;
+
+.potsFlexed {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.potsContainer  {
+    background: #ffff;
+    display: flex;
+    flex-direction: column;
+        padding: 24px;
+border-radius: 12px;
+}
+
+.budgetsContainer{
+    display: flex;
+    flex-direction: column;
+    margin:32px 40px;
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    h1{
+        font-weight: 700;
+        font-size: $text-preset-1; ;
+    }
+    button{
+        padding: 16px;
+        font-weight: 700;
+        font-size: $text-preset-4;
+        color: $white;
+        background-color:$grey-900;
+        border:none;
+        border-radius: $spacing-100;
+        transition: 0.3s;
+    }
+    button:active{
+        transform: scale(0.96);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) inset;
+    }
+}
+
+.PotTitleContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.PotTitle{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    h2{
+        font-size: $text-preset-2;
+    }
+}
+
+.PotBgRounded{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.PotContent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .PotContentTitle{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .ContenTitle{
+        font-size: $text-preset-4;
+        color: $grey-500;
+    }
+    .ContentTotal{
+        font-size: $text-preset-1;
+        color:$grey-900;
+        font-weight: bold
+    }
+}
+
+.edit {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: $white;
+  border-radius: $spacing-100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  min-width: 114px;
+  z-index: 10;
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+.editMessage,
+.deleteMessage {
+  padding: 10px 16px;
+  font-size: $text-preset-4;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border: none;
+}
+
+.editMessage:hover {
+  background-color: $grey-100;
+  cursor: pointer;
+}
+.border{
+      border-top: 1px solid $grey-300;
+        margin-left:  16px;
+        margin-right: 16px;
+
+}
+
+.deleteMessage {
+  color: $red;
+}
+
+.deleteMessage:hover {
+  background-color: rgba($red, 0.08);
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* PotTitleContainer ni position: relative qilib qo‘yish kerak */
+.PotTitleContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.funtionalButton{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    margin-top: 32px;
+    button{
+        font-size: $text-preset-4;
+        font-weight: bold;
+        color: $grey-900;
+        background-color: $beige-100;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        width: 100%;
+        border-radius: 8px;
+    }
+}

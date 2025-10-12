@@ -3,11 +3,11 @@ import Select from "react-select";
 import chroma from "chroma-js";
 import { useCollectionsData } from "../hooks/useCollectionsData";
 
-export function Dot({
+export function PotDot({
   onChange,
   defaultValue = [0],
-  isEditing = false,          // 🔹 edit rejimi
-  existingData = {},          // 🔹 tahrirlanayotgan element (masalan: { theme: '#FF8B00' })
+  isEditing = false, // 🔹 edit rejimi
+  existingData = {}, // 🔹 tahrirlanayotgan element (masalan: { theme: '#FF8B00' })
 }) {
   const colourOptions = [
     { value: "ocean", label: "Green", color: "#277C78" },

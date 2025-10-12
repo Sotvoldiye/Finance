@@ -1,7 +1,9 @@
 @import "../../scss/variables";
 
 .diagramma {
-  position: relative; // ota container relativ bo'lishi kerak
+  position: relative;
+     font-family: "Public Sans", sans-serif; /* Add fallback font */
+ // ota container relativ bo'lishi kerak
 
   #chart {
     position: relative;
@@ -15,16 +17,22 @@
     margin: 0;
     pointer-events: none; 
     text-align: center;
+       font-family: "Public Sans", sans-serif; /* Add fallback font */
+
     h3{
         font-size: $text-preset-1;
         font-weight: 700;
         color: $grey-900;
+           font-family: "Public Sans", sans-serif; /* Add fallback font */
+
     }
     p{
         font-weight: 400;
         font-size: $text-preset-5;
         color:$grey-500;
         margin-top: 8px;
+           font-family: "Public Sans", sans-serif; /* Add fallback font */
+
     }
   }
 }
