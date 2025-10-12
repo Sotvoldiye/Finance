@@ -127,6 +127,8 @@ const Posts = () => {
             withdraw={withdraw} // ✅ endi faqat tanlangan pot
             id={withdraw.id}
             setAddPot={setWithdraw}
+                onUpdated={handleUpdatedPot} // ✅
+
           />
         )}
 
@@ -141,6 +143,8 @@ const Posts = () => {
             addraw={add} // ✅ endi faqat tanlangan pot
             id={add.id}
             setAddPot={setAdd}
+                onUpdated={handleUpdatedPot} // ✅
+
           />
         )}
 

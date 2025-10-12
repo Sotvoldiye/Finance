@@ -26,24 +26,25 @@ const Budgets = () => {
     setOpenMenuId((prev) => (prev === id ? null : id));
   };
 
-  useEffect(() => {
-    if (data && data.pots) {
-      setPots(data.pots);
-      const totalSum = data.pots.reduce((acc, item) => acc + item.total, 0);
-      setTotal(totalSum);
-    }
-    if (data && data.budgets) {
-      setBudgets(data.budgets);
-      const totalBudgets = data.budgets.reduce(
-        (acc, item) => acc + item.maximum,
-        0
-      );
-      setBudgetTotal(totalBudgets);
-    }
-    if (data) {
-      setTransactions(data.transactions || []);
-    }
-  }, [data]);
+useEffect(() => {
+  if (data && data.pots) {
+    setPots(data.pots);
+    const totalSum = data.pots.reduce((acc, item) => acc + item.total, 0);
+    setTotal(totalSum);
+  }
+  if (data && data.budgets) {
+    setBudgets(data.budgets);
+    const totalBudgets = data.budgets.reduce(
+      (acc, item) => acc + item.maximum,
+      0
+    );
+    setBudgetTotal(totalBudgets);
+  }
+  if (data) {
+    setTransactions(data.transactions || []);
+  }
+}, [data]);
+
 
   // ✅ DELETE modal
   const handleDeleteClick = useCallback((id) => {

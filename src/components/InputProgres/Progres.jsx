@@ -47,21 +47,20 @@ export function ProgressDemo({
         {changeProgress > 0 && (
           <div
             className="absolute top-0 h-full transition-all duration-700"
-style={{
-  left: isWithdraw
-    ? `${progress - changeProgress}%`
-    : `${progress}%`,
-  width: `${changeProgress}%`,
-  backgroundColor: isWithdraw ? "#C94736" : "#277C78",
-  marginLeft: isWithdraw ? "0px" : "2px",
-  marginRight: isWithdraw ? "1px" : "0px", // ✅ to‘g‘ri yozilishi
-}}
-
+            style={{
+              left: isWithdraw
+                ? `${progress - changeProgress}%`
+                : `${progress}%`,
+              width: `${changeProgress}%`,
+              backgroundColor: isWithdraw ? "#C94736" : "#277C78",
+              marginLeft: isWithdraw ? "0px" : "2px",
+              marginRight: isWithdraw ? "1px" : "0px", // ✅ to‘g‘ri yozilishi
+            }}
           ></div>
         )}
       </div>
 
-      <div className="text-sm mt-[13px] flex justify-between text-[#696868] text-[12px]">
+      <div className="text-sm mt-[13px] f lex justify-between text-[#696868] text-[12px]">
         <p className="font-bold">
           {isWithdraw
             ? (progress - changeProgress).toFixed(0)

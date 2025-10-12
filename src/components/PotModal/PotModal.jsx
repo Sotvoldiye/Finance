@@ -7,7 +7,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
 import { toast } from "sonner";
 import { PotDot } from "../SelectPot";
 import { ProgressDemo } from "../InputProgres/Progres";
@@ -58,6 +58,8 @@ function PotModal({
         total: 0,
         theme,
         createdAt: new Date(),
+          userId: auth.currentUser.uid, // 🔑 Foydalanuvchi bilan bog‘lash
+
       };
 
       const docRef = await addDoc(collection(db, "pots"), newPot);
@@ -85,68 +87,78 @@ function PotModal({
       toast.error(`O‘chirishda xatolik: ${error.message}`);
     }
   };
-  const withdrawFunc = async (e) => {
-    e.preventDefault();
+const withdrawFunc = async (e) => {
+  e.preventDefault();
 
-    if (!withdraw?.id) {
-      toast.warning("Pot topilmadi!");
-      return;
+  if (!withdraw?.id) {
+    toast.warning("Pot topilmadi!");
+    return;
+  }
+
+  if (!total || total <= 0) {
+    toast.warning("To‘g‘ri summa kiriting!");
+    return;
+  }
+
+  if (total > withdraw.total) {
+    toast.warning("Kiritilgan summa mavjud mablag‘dan ko‘p!");
+    return;
+  }
+
+  try {
+    const potRef = doc(db, "pots", withdraw.id);
+    const newTotal = withdraw.total - Number(total);
+
+    await updateDoc(potRef, { total: newTotal });
+
+    // 🔥 UI-ni darhol yangilash
+    if (onUpdated) {
+      onUpdated({ ...withdraw, total: newTotal });
     }
 
-    if (!total || total <= 0) {
-      toast.warning("To‘g‘ri summa kiriting!");
-      return;
+    toast.success("Mablag‘ muvaffaqiyatli yechildi!");
+    setAddPot(false);
+  } catch (error) {
+    toast.error("Xatolik yuz berdi: " + error.message);
+  }
+};
+
+const addrawFunc = async (e) => {
+  e.preventDefault();
+
+  if (!addraw?.id) {
+    toast.warning("Pot topilmadi!");
+    return;
+  }
+
+  if (!total || total <= 0) {
+    toast.warning("To‘g‘ri summa kiriting!");
+    return;
+  }
+
+  if (addraw.total + Number(total) > addraw.target) {
+    toast.warning("Kiritilgan summa maqsaddan oshib ketdi!");
+    return;
+  }
+
+  try {
+    const potRef = doc(db, "pots", addraw.id);
+    const newTotal = addraw.total + Number(total);
+
+    await updateDoc(potRef, { total: newTotal });
+
+    // 🔥 UI-ni darhol yangilash (oldingi xato joyda `withdraw` ishlatilgan edi)
+    if (onUpdated) {
+      onUpdated({ ...addraw, total: newTotal });
     }
 
-    if (total > withdraw.total) {
-      toast.warning("Kiritilgan summa mavjud mablag‘dan ko‘p!");
-      return;
-    }
+    toast.success("Mablag‘ muvaffaqiyatli qo‘shildi!");
+    setAddPot(false);
+  } catch (error) {
+    toast.error("Xatolik yuz berdi: " + error.message);
+  }
+};
 
-    try {
-      const potRef = doc(db, "pots", withdraw.id);
-      const newTotal = withdraw.total - Number(total);
-
-      await updateDoc(potRef, { total: newTotal });
-
-      toast.success("Mablag‘ muvaffaqiyatli yechildi!");
-      setAddPot(false);
-    } catch (error) {
-      toast.error("Xatolik yuz berdi: " + error.message);
-    }
-  };
-
-  const addrawFunc = async (e) => {
-    e.preventDefault();
-
-    if (!addraw?.id) {
-      toast.warning("Pot topilmadi!");
-      return;
-    }
-
-    if (!total || total <= 0) {
-      toast.warning("To‘g‘ri summa kiriting!");
-      return;
-    }
-
-    if (total > addraw.target) {
-      // yoki cheklov kerak bo‘lmasa, bu tekshiruvni olib tashlang
-      toast.warning("Kiritilgan summa maqsaddan oshib ketdi!");
-      return;
-    }
-
-    try {
-      const potRef = doc(db, "pots", addraw.id);
-      const newTotal = addraw.total + Number(total);
-
-      await updateDoc(potRef, { total: newTotal });
-
-      toast.success("Mablag‘ muvaffaqiyatli qo‘shildi!");
-      setAddPot(false);
-    } catch (error) {
-      toast.error("Xatolik yuz berdi: " + error.message);
-    }
-  };
   // 🟡 Potni tahrirlash
   const updatePot = async (e) => {
     e.preventDefault();

@@ -12,6 +12,26 @@ const Overview = () => {
   const [budgetTotal, setBudgetTotal] = useState(0);
   const [transactions, setTransactions] = useState([]);
 
+  const totalBudget = budgets.reduce(
+    (sum, item) => sum + Number(item.maximum || 0),
+    0
+  );
+  const totalPots = pots.reduce(
+    (sum, item) => sum + Number(item.total || 0),
+    0
+  );
+  const totalTransaction = transactions.reduce(
+    (sum, item) => sum + Math.abs(Number(item.amount || 0)),
+    0
+  );
+
+  const negativeTotal = transactions
+    .filter((item) => Number(item.amount) < 0) 
+    .reduce((sum, item) => sum + Math.abs(Number(item.amount)), 0); 
+
+  const CurrentBalance = totalBudget + totalPots + totalTransaction;
+  const Expenses = negativeTotal + totalBudget
+  const income = CurrentBalance - Expenses
   useEffect(() => {
     if (data && data.pots) {
       setPots(data.pots);
@@ -30,7 +50,6 @@ const Overview = () => {
       setTransactions(data.transactions || []); // Har doim array bo'lishini ta'minlash
     }
   }, [data]);
-  console.log(data);
 
   return (
     <div className={style.overviewContainer}>
@@ -39,20 +58,18 @@ const Overview = () => {
         <ul className={style.overAmounts}>
           <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Current Balance</p>
-            <p className={style.currentBalance}>
-              ${data && data.balance.current}.00
-            </p>
+            <p className={style.currentBalance}>${CurrentBalance}</p>
           </li>
           <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Income</p>
             <p className={style.currentBalance}>
-              ${data && data.balance.income}
+              ${income}
             </p>
           </li>
           <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Expenses</p>
             <p className={style.currentBalance}>
-              ${data && data.balance.expenses}
+              ${Expenses}
             </p>
           </li>
         </ul>
@@ -167,40 +184,38 @@ const Overview = () => {
                 </NavLink>
               </div>
               <div className={style.spend_container}>
-             {data ? (
-                <Chart budgetTotal={budgetTotal} budgets={data.budgets} />
-              ) : (
-                <p>Loading ...</p>
-              )}
-              <div className={style.spendingBudgetContainer}>
-                 {budgets.slice(0,5).map((m) => {
-
-                let theme = m.theme;
-                return (
-                  <div key={m.id} className={style.spending_status}>
-                    <div className={style.left_spend}>
-                      <div
-                        style={{ backgroundColor: theme }}
-                        className={style.spend_Bgcolor}
-                      ></div>
-                     <div> <div className={style.spend_Name}>{m.category}</div>
-                        <p className={style.spend_Money}>
-                        <span> ${m.maximum}</span>
-                      </p></div>
-                    </div>
-                    <div>
-                    
-                    </div>
-                  </div>
-                );
-              })}
+                {data ? (
+                  <Chart budgetTotal={budgetTotal} budgets={data.budgets} />
+                ) : (
+                  <p>Loading ...</p>
+                )}
+                <div className={style.spendingBudgetContainer}>
+                  {budgets.slice(0, 5).map((m) => {
+                    let theme = m.theme;
+                    return (
+                      <div key={m.id} className={style.spending_status}>
+                        <div className={style.left_spend}>
+                          <div
+                            style={{ backgroundColor: theme }}
+                            className={style.spend_Bgcolor}
+                          ></div>
+                          <div>
+                            {" "}
+                            <div className={style.spend_Name}>{m.category}</div>
+                            <p className={style.spend_Money}>
+                              <span> ${m.maximum}</span>
+                            </p>
+                          </div>
+                        </div>
+                        <div></div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-             
-              </div>
- 
             </div>
 
-            <div className={style.bills}>
+            {/* <div className={style.bills}>
               <div className={style.billsTitleView}>
                 <h2 className={style.potsTitle}>Recurring Bills</h2>
                 <NavLink to="/recurringbills">
@@ -224,7 +239,7 @@ const Overview = () => {
                   <p className={style.billsItemAmount}>$59.98</p>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -117,7 +117,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
               </div>
             )}
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/recurringbills"
             className={({ isActive }) =>
               `${style.navItem} ${
@@ -139,7 +139,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
                 <h4>Recurring Bills</h4>
               </div>
             )}
-          </NavLink>
+          </NavLink> */}
         </div>
 
         <div className={style.minimizeMenu}>

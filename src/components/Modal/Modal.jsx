@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import style from "./MOdal.module.scss";
-import { collection, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore"; // 🔹 updateDoc qo'shildi
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore"; // 🔹 updateDoc qo'shildi
 import { db } from "../../firebase/config";
 import { toast } from "sonner";
 
@@ -27,9 +33,7 @@ function Modal({
   const [maximum, setMaximum] = useState(
     isEditing ? existingData.maximum || "" : ""
   );
-  const [dot, setDot] = useState(
-    isEditing ? existingData.theme || null : null
-  );
+  const [dot, setDot] = useState(isEditing ? existingData.theme || null : null);
 
   // 🔹 Yangi yoki mavjud ma’lumotni saqlash
   const addBudget = async (e) => {
@@ -49,6 +53,7 @@ function Modal({
           maximum: Number(maximum),
           theme: dot,
           updatedAt: new Date(),
+          userId: auth.currentUser.uid, // 🔑 Foydalanuvchi bilan bog‘lash
         });
 
         if (onUpdated) {
@@ -128,14 +133,18 @@ function Modal({
           {GroupedSelect && (
             <GroupedSelect
               onChange={(value) => setSelectedCategory(value)}
-            defaultValue={isEditing ? existingData.theme : null}
+              defaultValue={isEditing ? existingData.theme : null}
               isEditing={isEditing}
-              existingData={existingData}            />
+              existingData={existingData}
+            />
           )}
 
           {type && (
             <div className={style.inputGroup}>
-              <label style={{ fontSize: 12, color: "#696868" }} htmlFor="number">
+              <label
+                style={{ fontSize: 12, color: "#696868" }}
+                htmlFor="number"
+              >
                 Maximum Spend
               </label>
               <div className={style.input}>
