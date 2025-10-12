@@ -179,6 +179,8 @@ const Transactions = () => {
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={setCurrentPage}
+              onPrev={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+  onNext={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           />
         )}
       </div>

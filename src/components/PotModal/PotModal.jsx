@@ -58,7 +58,6 @@ function PotModal({
         total: 0,
         theme,
         createdAt: new Date(),
-          userId: auth.currentUser.uid, // 🔑 Foydalanuvchi bilan bog‘lash
 
       };
 

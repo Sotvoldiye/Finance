@@ -1,53 +1,25 @@
+import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { db, auth } from "../firebase/config";
-import { onAuthStateChanged } from "firebase/auth";
-
-export function useCollectionsData() {
-  const [data, setData] = useState({
-    pots: [],
-    budgets: [],
-    transactions: [],
-  });
-  const [user, setUser] = useState(null);
+import { db } from "../firebase";
+export function useCollection(c) {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    // 🔐 foydalanuvchini kuzatish
-    const unsubAuth = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubBudgets = onSnapshot(collection(db, "budgets"), (snapshot) => {
+      const budgets = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setData((prev) => ({ ...prev, budgets }));
     });
 
-    return () => unsubAuth();
-  }, []);
-
-  useEffect(() => {
-    if (!user) return; // foydalanuvchi aniqlanmagan bo‘lsa, kutamiz
-
-    // 🧩 real-time snapshotlar
-    const unsubPots = onSnapshot(
-      query(collection(db, "pots"), where("userId", "==", user.uid)),
-      (snapshot) => {
-        const pots = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setData((prev) => ({ ...prev, pots }));
-      }
-    );
-
-    const unsubBudgets = onSnapshot(
-      query(collection(db, "budgets"), where("userId", "==", user.uid)),
-      (snapshot) => {
-        const budgets = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setData((prev) => ({ ...prev, budgets }));
-      }
-    );
+    const unsubPots = onSnapshot(collection(db, "pots"), (snapshot) => {
+      const pots = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setData((prev) => ({ ...prev, pots }));
+    });
 
     const unsubTransactions = onSnapshot(
-      query(collection(db, "transactions"), where("userId", "==", user.uid)),
+      collection(db, "transactions"),
       (snapshot) => {
         const transactions = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -57,13 +29,11 @@ export function useCollectionsData() {
       }
     );
 
-    // 🔄 unsub funksiyalarni qaytarish
     return () => {
-      unsubPots();
       unsubBudgets();
+      unsubPots();
       unsubTransactions();
     };
-  }, [user]);
-
+  }, []);
   return { data };
 }
