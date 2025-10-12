@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "./Modal.module.scss";
+import style from "./MOdal.module.scss";
 import { collection, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore"; // 🔹 updateDoc qo'shildi
 import { db } from "../../firebase/config";
 import { toast } from "sonner";
