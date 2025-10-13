@@ -58,18 +58,18 @@ const Overview = () => {
         <ul className={style.overAmounts}>
           <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Current Balance</p>
-            <p className={style.currentBalance}>${CurrentBalance}</p>
+            <p className={style.currentBalance}>${CurrentBalance.toFixed(2)}</p>
           </li>
           <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Income</p>
             <p className={style.currentBalance}>
-              ${income}
+              ${income.toFixed(2)}
             </p>
           </li>
           <li className={style.overAmountsItem}>
             <p className={style.currentBalanceTitle}>Expenses</p>
             <p className={style.currentBalance}>
-              ${Expenses}
+              ${Expenses.toFixed(2)}
             </p>
           </li>
         </ul>
@@ -134,7 +134,7 @@ const Overview = () => {
 
               <ul className={style.tranList}>
                 {data &&
-                  data.transactions.map((t) => {
+                  data.transactions.slice(0,3).map((t) => {
                     return (
                       <div key={t.id} className={style.tranListItem}>
                         <div className={style.tranItemPer}>
